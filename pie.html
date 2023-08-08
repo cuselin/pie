@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="height:400px"></div>
+<!-- ECharts单文件引入 -->
+<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+<script type="text/javascript">
+    // 路径配置
+    require.config({
+        paths: {
+            echarts: 'http://echarts.baidu.com/build/dist'
+        }
+    });
+    
+    // 使用
+    require(
+        [
+            'echarts',
+            'echarts/chart/pie' // 使用柱状图就加载bar模块，按需加载
+        ],
+        function (ec) {
+            // 基于准备好的dom，初始化echarts图表
+            var myChart = ec.init(document.getElementById('main')); 
+            var option;
+
+option = {
+  title: {
+    text: '全国湿地面积及比例示意图',
+    // subtext: 'Fake Data',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+//   legend: {
+//     orient: 'vertical',
+//     left: 'bottom'
+//   },
+  series: [
+    {
+      name: 'Access From',
+      type: 'pie',
+      radius: '50%',
+      data: [
+        { value: 882.98, name: '河流水面' },
+        { value: 193.64, name: '沼泽地' },
+        { value: 607.21, name: '内陆滩涂' },
+        { value: 150.97, name: '沿海滩涂' },
+        { value: 1113.91, name: '沼泽草地' },
+        { value: 75.48, name: '灌丛沼泽' },
+        { value: 220.76, name: '森林沼泽' },
+        { value: 2.71, name: '红树林地' },
+        { value: 411.68, name: '浅海水域' },
+        { value: 351.71, name: '沟渠' },
+        { value: 456.54, name: '坑塘水面' },
+        { value: 339.35, name: '水库水面' },
+        { value: 827.99, name: '湖泊水面' }
+      ],
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      }
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+        }
+    );
+    </script>
+</body>
+</html>
